@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap-env="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost/Tarea6.2SergioJimenez/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost/Tarea6.2SergioJimenez/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://localhost/Tarea6.2SergioJimenez/"/>
+    </wsdl:types>
+    <wsdl:message name="obtieneProductosRequest"/>
+    <wsdl:message name="obtieneProductosResponse">
+        <wsdl:part name="obtieneProductosReturn" type="soap-enc:array"/>
+    </wsdl:message>
+    <wsdl:message name="obtieneProductoRequest">
+        <wsdl:part name="codigo" type="xsd:int"/>
+    </wsdl:message>
+    <wsdl:message name="obtieneProductoResponse">
+        <wsdl:part name="obtieneProductoReturn" type="soap-enc:array"/>
+    </wsdl:message>
+    <wsdl:message name="verificaClienteRequest">
+        <wsdl:part name="nombre" type="xsd:string"/>
+        <wsdl:part name="contrasena" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="verificaClienteResponse">
+        <wsdl:part name="verificaClienteReturn" type="xsd:boolean"/>
+    </wsdl:message>
+    <wsdl:portType name="DBPortType">
+        <wsdl:operation name="obtieneProductos">
+            <wsdl:documentation/>
+            <wsdl:input message="tns:obtieneProductosRequest"/>
+            <wsdl:output message="tns:obtieneProductosResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="obtieneProducto">
+            <wsdl:documentation/>
+            <wsdl:input message="tns:obtieneProductoRequest"/>
+            <wsdl:output message="tns:obtieneProductoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="verificaCliente">
+            <wsdl:documentation/>
+            <wsdl:input message="tns:verificaClienteRequest"/>
+            <wsdl:output message="tns:verificaClienteResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DBBinding" type="tns:DBPortType">
+        <soap-env:binding xmlns="http://schemas.xmlsoap.org/wsdl/soap/" style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="obtieneProductos">
+            <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/Tarea6.2SergioJimenez/servicio.php?method=obtieneProductos" style="rpc"/>
+            <wsdl:input>
+                <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="obtieneProducto">
+            <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/Tarea6.2SergioJimenez/servicio.php?method=obtieneProducto" style="rpc"/>
+            <wsdl:input>
+                <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="verificaCliente">
+            <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/Tarea6.2SergioJimenez/servicio.php?method=verificaCliente" style="rpc"/>
+            <wsdl:input>
+                <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DB">
+        <wsdl:documentation>Clase DB</wsdl:documentation>
+        <wsdl:port name="DBPort" binding="tns:DBBinding">
+            <soap-env:address location="http://localhost/Tarea6.2SergioJimenez/servicio.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
